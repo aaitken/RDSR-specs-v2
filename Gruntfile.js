@@ -16,7 +16,8 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          'bower_components/jquery/dist/jquery.js'],
+          'bower_components/jquery/dist/jquery.js',
+          'bower_components/leaflet/dist/leaflet-src.js'],
         dest: 'out/assets/scripts/vendors.js'
       }
     },
