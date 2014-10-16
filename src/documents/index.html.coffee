@@ -5,4 +5,4 @@ layout: 'default'
 
 ---
 
-h1 "Hello World"
+div id:"ama-map", class:"ama-map"
