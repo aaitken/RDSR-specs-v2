@@ -10,15 +10,23 @@ module.exports = function(grunt) {
   config = {
 
     //concatenate vendor scripts
+    //order important in app.js
     concat: {
       options: {
         separator: ';'
       },
-      dist: {
-        src: [
-          'bower_components/jquery/dist/jquery.js',
-          'bower_components/leaflet/dist/leaflet-src.js'],
-        dest: 'out/assets/scripts/vendors.js'
+      js: {
+        files: {
+          'out/assets/scripts/vendors.js': [
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/leaflet/dist/leaflet-src.js'],
+          'out/assets/scripts/app.js': [
+            'out/assets/scripts/namespaces.js',
+            'out/assets/scripts/methods/*',
+            'out/assets/scripts/utils/*',
+            'out/assets/scripts/classes/*',
+            'out/assets/scripts/init.js']
+        }
       }
     },
 
