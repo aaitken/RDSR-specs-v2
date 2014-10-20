@@ -3,7 +3,7 @@
 
   SPEC.utils.include(SPEC.ImageMap, SPEC.methods);
 
-  imageMap = new SPEC.ImageMap({
+  imageMap = SPEC.imageMap = new SPEC.ImageMap({
     el: 'ama-map',
     img: {
       src: '/assets/images/RDSR-MWA.png',
@@ -15,8 +15,6 @@
       max: 5
     }
   });
-
-  imageMap.addCRMMarkers();
 
   imageMap.addLayersControl();
 

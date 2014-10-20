@@ -1,6 +1,10 @@
 (function() {
   SPEC.methods.addLayersControl = function() {
-    return this.Leaflet.control.layers().addTo(this.map);
+    var overlayCrm;
+    overlayCrm = {
+      "CRM Entry Points": this.crmEntryPoints
+    };
+    return this.Leaflet.control.layers(null, overlayCrm).addTo(this.map);
   };
 
 }).call(this);

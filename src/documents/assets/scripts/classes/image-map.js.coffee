@@ -20,6 +20,7 @@ SPEC.ImageMap = class
       attributionControl: false
       center: [0, 0]
       zoom: 1
+      layers: @crmEntryPoints
       crs: L.CRS.Simple})
 
 
@@ -38,6 +39,7 @@ SPEC.ImageMap = class
 
 
   _init: ->
+    @makeCrmLayerGroup()
     @_setImagePath()
     @_setupMap()
     @_overlayImage()

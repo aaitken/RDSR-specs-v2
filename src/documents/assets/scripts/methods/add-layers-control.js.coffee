@@ -1,3 +1,6 @@
 SPEC.methods.addLayersControl = ->
 
-  @Leaflet.control.layers().addTo(@map)
+  overlayCrm = {
+    "CRM Entry Points": @crmEntryPoints}
+
+  @Leaflet.control.layers(null, overlayCrm).addTo(@map)

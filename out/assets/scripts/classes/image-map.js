@@ -20,6 +20,7 @@
         attributionControl: false,
         center: [0, 0],
         zoom: 1,
+        layers: this.crmEntryPoints,
         crs: L.CRS.Simple
       });
     };
@@ -34,6 +35,7 @@
     };
 
     _Class.prototype._init = function() {
+      this.makeCrmLayerGroup();
       this._setImagePath();
       this._setupMap();
       return this._overlayImage();

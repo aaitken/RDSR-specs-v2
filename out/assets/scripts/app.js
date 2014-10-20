@@ -8,35 +8,11 @@
 }).call(this);
 ;(function() {
   SPEC.methods.addLayersControl = function() {
-    return this.Leaflet.control.layers().addTo(this.map);
-  };
-
-}).call(this);
-;(function() {
-  SPEC.methods.addCRMMarkers = function() {
-    var markers;
-    markers = {
-      emailGate: {
-        pin: this.Leaflet.marker([-269.5, 332.1875]).addTo(this.map),
-        txt: "<p><b>Email Gate</b><br><a href=\"http://google.com/\">google</a></p> "
-      },
-      museLogin: {
-        pin: this.Leaflet.marker([-152.875, 444.125]).addTo(this.map),
-        txt: "<p><b>Muse Login</b></p> "
-      },
-      museSignup: {
-        pin: this.Leaflet.marker([-214.5625, 444.125]).addTo(this.map),
-        txt: "<p><b>Muse Signup</b></p> "
-      },
-      assistance: {
-        pin: this.Leaflet.marker([-77.1875, 499.75]).addTo(this.map),
-        txt: "<p><b>Ask for Assistance</b></p> "
-      }
+    var overlayCrm;
+    overlayCrm = {
+      "CRM Entry Points": this.crmEntryPoints
     };
-    markers.emailGate.pin.bindPopup(markers.emailGate.txt);
-    markers.museLogin.pin.bindPopup(markers.museLogin.txt);
-    markers.museSignup.pin.bindPopup(markers.museSignup.txt);
-    return markers.assistance.pin.bindPopup(markers.assistance.txt);
+    return this.Leaflet.control.layers(null, overlayCrm).addTo(this.map);
   };
 
 }).call(this);
@@ -45,6 +21,14 @@
     return this.map.on('click', function(e) {
       return console.log("" + e.latlng.lat + ", " + e.latlng.lng);
     });
+  };
+
+}).call(this);
+;(function() {
+  SPEC.methods.makeCrmLayerGroup = function() {
+    var markers;
+    markers = [this.Leaflet.marker([-269.5, 332.1875]).bindPopup("<p><b>Email Gate</b><br><a href=\"http://google.com/\">google</a></p> "), this.Leaflet.marker([-152.875, 444.125]).bindPopup("<p><b>Muse Login</b></p> "), this.Leaflet.marker([-214.5625, 444.125]).bindPopup("<p><b>Muse Signup</b></p> "), this.Leaflet.marker([-77.1875, 499.75]).bindPopup("<p><b>Ask for Assistance</b></p> ")];
+    return this.crmEntryPoints = this.Leaflet.layerGroup(markers);
   };
 
 }).call(this);
@@ -87,6 +71,7 @@
         attributionControl: false,
         center: [0, 0],
         zoom: 1,
+        layers: this.crmEntryPoints,
         crs: L.CRS.Simple
       });
     };
@@ -101,6 +86,7 @@
     };
 
     _Class.prototype._init = function() {
+      this.makeCrmLayerGroup();
       this._setImagePath();
       this._setupMap();
       return this._overlayImage();
@@ -118,7 +104,7 @@
 
   SPEC.utils.include(SPEC.ImageMap, SPEC.methods);
 
-  imageMap = new SPEC.ImageMap({
+  imageMap = SPEC.imageMap = new SPEC.ImageMap({
     el: 'ama-map',
     img: {
       src: '/assets/images/RDSR-MWA.png',
@@ -130,8 +116,6 @@
       max: 5
     }
   });
-
-  imageMap.addCRMMarkers();
 
   imageMap.addLayersControl();
 
